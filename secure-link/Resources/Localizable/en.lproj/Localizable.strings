@@ -1,0 +1,14 @@
+"Common.Ok" = "OK";
+"Common.Continue" = "Continue";
+"Common.Cancel" = "Cancel";
+"Common.Back" = "Back";
+"Common.Save" = "Save";
+"Common.Later" = "Later";
+"Common.Preview" = "Preview";
+"Common.Edit" = "Edit";
+"Common.AppName" = "Kegel Man";
+
+"Splash.Description" = "Your Security. Your Freedom";
+
+"Pin.EnterPasscode" = "Enter Passcode";
+"Pin.UseFaceId" = "Use Face ID";

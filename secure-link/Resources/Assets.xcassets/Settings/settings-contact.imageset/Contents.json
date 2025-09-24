@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "settings-contact.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
