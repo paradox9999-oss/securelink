@@ -1,0 +1,62 @@
+workflows:
+  ios-test-sign:
+    name: Minimal iOS Sign & Upload
+
+    integrations:
+      app_store_connect: "CodeMagic"
+
+    environment:
+      vars:
+        APP_APPLE_ID: "6752566816"
+        XCODE_SCHEME: "secure-link"
+        XCODE_PROJECT: "secure-link.xcodeproj"
+        BUNDLE_ID: "com.aesthetics.securelink"
+
+      ios_signing:
+        provisioning_profiles:
+          - AppstoreShield
+        certificates:
+          - AppCertificate
+
+    scripts:
+      - name: Set up code signing in project
+        script: xcode-project use-profiles
+        
+      - name: Get the latest build number and increment
+        script: |
+          echo "Fetching latest build number for App ID: $APP_APPLE_ID"
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_APPLE_ID")
+          if [ -z "$LATEST_BUILD_NUMBER" ]; then
+            echo "No existing builds found, starting from 1"
+            LATEST_BUILD_NUMBER=1
+          fi
+          echo "Latest build on App Store: $LATEST_BUILD_NUMBER"
+          cd ios
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+          
+      - name: Clean and archive project
+        script: |
+          xcodebuild clean
+          set -o pipefail && xcodebuild archive \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
+            -allowProvisioningUpdates \
+          | tee "$CM_BUILD_DIR/xcodebuild.log"
+      - name: Export .ipa using default settings
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME" \
+          | tee "$CM_BUILD_DIR/export.log"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: true

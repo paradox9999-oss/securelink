@@ -40,6 +40,8 @@ internal enum Asset {
   internal static let homeShield = ImageAsset(name: "home-shield")
   internal static let paywallBg = ImageAsset(name: "paywall-bg")
   internal static let paywallCircle = ImageAsset(name: "paywall-circle")
+  internal static let paywallDismiss = ImageAsset(name: "paywall-dismiss")
+  internal static let paywallUnlock = ImageAsset(name: "paywall-unlock")
   internal static let pinBack = ImageAsset(name: "pin-back")
   internal static let pinFaceId = ImageAsset(name: "pin-faceId")
   internal static let pinX = ImageAsset(name: "pin-x")

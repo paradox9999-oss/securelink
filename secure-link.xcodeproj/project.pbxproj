@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		112442732E851D5B009949C3 /* Extension+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112442722E851D5B009949C3 /* Extension+Loadable.swift */; };
+		112442762E851D85009949C3 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 112442752E851D85009949C3 /* NVActivityIndicatorView */; };
+		112442782E851D85009949C3 /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = 112442772E851D85009949C3 /* NVActivityIndicatorViewExtended */; };
 		112992312E03C26A00738AC9 /* PinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112992302E03C26A00738AC9 /* PinViewModel.swift */; };
 		112992332E03C27300738AC9 /* PinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112992322E03C27300738AC9 /* PinViewController.swift */; };
 		112992362E03C2DE00738AC9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112992352E03C2DE00738AC9 /* ViewController.swift */; };
@@ -139,6 +142,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		112442722E851D5B009949C3 /* Extension+Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Loadable.swift"; sourceTree = "<group>"; };
 		112992302E03C26A00738AC9 /* PinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinViewModel.swift; sourceTree = "<group>"; };
 		112992322E03C27300738AC9 /* PinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinViewController.swift; sourceTree = "<group>"; };
 		112992352E03C2DE00738AC9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -273,7 +277,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1129DD9B2E035978004E45D4 /* SnapKit in Frameworks */,
+				112442782E851D85009949C3 /* NVActivityIndicatorViewExtended in Frameworks */,
 				112992592E03C4A800738AC9 /* Alamofire in Frameworks */,
+				112442762E851D85009949C3 /* NVActivityIndicatorView in Frameworks */,
 				1129DD952E03595A004E45D4 /* Toast in Frameworks */,
 				1129DD982E035969004E45D4 /* Swinject in Frameworks */,
 				1129928A2E03EAFB00738AC9 /* SDWebImage in Frameworks */,
@@ -579,6 +585,7 @@
 				1129926B2E03DB1500738AC9 /* Extension+UIView.swift */,
 				1129925A2E03C5BB00738AC9 /* Extension+Publisher.swift */,
 				1129925C2E03C5C100738AC9 /* Extension+Toastable.swift */,
+				112442722E851D5B009949C3 /* Extension+Loadable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -799,6 +806,8 @@
 				112992582E03C4A800738AC9 /* Alamofire */,
 				112992892E03EAFB00738AC9 /* SDWebImage */,
 				114607872E171B8700C54DE1 /* Adapty */,
+				112442752E851D85009949C3 /* NVActivityIndicatorView */,
+				112442772E851D85009949C3 /* NVActivityIndicatorViewExtended */,
 			);
 			productName = "secure-link";
 			productReference = 1129DD342E0353ED004E45D4 /* secure-link.app */;
@@ -835,6 +844,7 @@
 				112992572E03C4A800738AC9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				112992882E03EAFB00738AC9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				114607862E171B8700C54DE1 /* XCRemoteSwiftPackageReference "AdaptySDK-iOS" */,
+				112442742E851D85009949C3 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1129DD352E0353ED004E45D4 /* Products */;
@@ -963,6 +973,7 @@
 				112992842E03EA3F00738AC9 /* ServersViewController.swift in Sources */,
 				1129927E2E03E64800738AC9 /* SettingsPaywallBannerView.swift in Sources */,
 				1129928D2E03EE0A00738AC9 /* HomeServerView.swift in Sources */,
+				112442732E851D5B009949C3 /* Extension+Loadable.swift in Sources */,
 				112992612E03C70200738AC9 /* PinNumberView.swift in Sources */,
 				1129DD8D2E0357A5004E45D4 /* ServicesAssembly.swift in Sources */,
 				1129925D2E03C5C100738AC9 /* Extension+Toastable.swift in Sources */,
@@ -1023,9 +1034,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "secure-link/secure-link.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA2F44N8G6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "secure-link/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Secure Link VPN";
@@ -1040,8 +1051,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.freevpn.germanyvpn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aesthetics.securelink;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1058,9 +1070,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "secure-link/secure-link.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BA2F44N8G6;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "secure-link/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Secure Link VPN";
@@ -1075,8 +1087,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.freevpn.germanyvpn;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aesthetics.securelink;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1232,6 +1245,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		112442742E851D85009949C3 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.0;
+			};
+		};
 		112992572E03C4A800738AC9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1283,6 +1304,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		112442752E851D85009949C3 /* NVActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 112442742E851D85009949C3 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorView;
+		};
+		112442772E851D85009949C3 /* NVActivityIndicatorViewExtended */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 112442742E851D85009949C3 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorViewExtended;
+		};
 		112992582E03C4A800738AC9 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 112992572E03C4A800738AC9 /* XCRemoteSwiftPackageReference "Alamofire" */;

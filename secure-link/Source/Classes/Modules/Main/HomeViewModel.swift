@@ -29,7 +29,7 @@ class HomeViewModel {
     private var input: HomeInput
     
     private var apiService: APINetworkService
-//    private var storeService: StoreService
+    private var storeService: StoreService
     private var storageService: StorageService
     private var speedService: SpeedServiceInterface
     
@@ -49,7 +49,7 @@ class HomeViewModel {
     init(input: HomeInput) {
         self.input = input
         self.apiService = input.resolver.resolve(APINetworkService.self)!
-//        self.storeService = input.resolver.resolve(StoreService.self)!
+        self.storeService = input.resolver.resolve(StoreService.self)!
         self.storageService = input.resolver.resolve(StorageService.self)!
         self.speedService = input.resolver.resolve(SpeedServiceInterface.self)!
     }
@@ -178,10 +178,10 @@ class HomeViewModel {
     
     func connectTapped() {
         if VPNManager.shared.isDisconnected {
-//            if self.storeService.hasUnlockedPro == false {
-//                self.input.didShowPaywall?()
-//                return
-//            }
+            if self.storeService.hasUnlockedPro == false {
+                self.input.didShowPaywall?()
+                return
+            }
             
             connect()
         } else {

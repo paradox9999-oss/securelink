@@ -15,14 +15,13 @@ final class ServicesAssembly: Assembly {
             StorageServiceImplementation()
         }
         .inObjectScope(.container)
-////
-//        
-//        // Store
-//        container.register(StoreService.self) { _ in
-//            StoreServiceImplementation()
-//        }
-//        .inObjectScope(.container)
-//        
+   
+        // Store
+        container.register(StoreService.self) { _ in
+            StoreServiceImplementation()
+        }
+        .inObjectScope(.container)
+    
         // Store
         container.register(APINetworkService.self) { _ in
             APINetworkService()

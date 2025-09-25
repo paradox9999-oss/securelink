@@ -11,8 +11,6 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
   internal enum Common {
-    /// Kegel Man
-    internal static let appName = L10n.tr("Localizable", "Common.AppName", fallback: "Kegel Man")
     /// Back
     internal static let back = L10n.tr("Localizable", "Common.Back", fallback: "Back")
     /// Cancel
