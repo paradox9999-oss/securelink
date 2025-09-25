@@ -14,9 +14,9 @@ workflows:
 
       ios_signing:
         provisioning_profiles:
-          - AppstoreShield
+          - AppstoreProd
         certificates:
-          - AppCertificate
+          - appstore
 
     scripts:
       - name: Set up code signing in project
