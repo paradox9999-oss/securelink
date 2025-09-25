@@ -9,6 +9,7 @@ workflows:
       vars:
         APP_APPLE_ID: "6752566816"
         XCODE_SCHEME: "secure-link"
+        XCODE_PROJECT: "secure-link.xcodeproj"
         BUNDLE_ID: "com.aesthetics.securelink"
 
       ios_signing:
@@ -29,8 +30,7 @@ workflows:
           NEXT=$(( LATEST + 1 ))
           echo "ASC latest: $LATEST -> NEXT: $NEXT"
 
-          # ВАЖНО: запускаем agvtool в том же каталоге, откуда будем собирать (без cd ios)
-          agvtool new-version -all "$NEXT"
+          agvtool new-version -all "$NEXT" || true
           echo "AGV status:"
           agvtool what-version || true
           agvtool what-marketing-version || true
@@ -38,14 +38,20 @@ workflows:
       - name: Clean and archive project
         script: |
           set -euo pipefail
+
+          # Автовыбор -workspace / -project
+          if [[ -n "${XCODE_WORKSPACE:-}" ]]; then
+            BUILD_ARGS=(-workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME")
+          else
+            BUILD_ARGS=(-project "${XCODE_PROJECT:?Set XCODE_PROJECT or XCODE_WORKSPACE}" -scheme "$XCODE_SCHEME")
+          fi
+
           xcodebuild clean \
-            -project "$XCODE_PROJECT" \
-            -scheme "$XCODE_SCHEME" \
+            "${BUILD_ARGS[@]}" \
             -configuration Release
 
           set -o pipefail && xcodebuild archive \
-            -project "$XCODE_PROJECT" \
-            -scheme "$XCODE_SCHEME" \
+            "${BUILD_ARGS[@]}" \
             -sdk iphoneos \
             -configuration Release \
             -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
@@ -59,10 +65,13 @@ workflows:
       - name: Export .ipa using default settings
         script: |
           set -euo pipefail
-          xcode-project build-ipa \
-            --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME" \
-          | tee "$CM_BUILD_DIR/export.log"
+          if [[ -n "${XCODE_WORKSPACE:-}" ]]; then
+            xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME" \
+            | tee "$CM_BUILD_DIR/export.log"
+          else
+            xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME" \
+            | tee "$CM_BUILD_DIR/export.log"
+          fi
 
           echo "IPA CFBundleVersion:"
           unzip -p build/ios/ipa/*.ipa "Payload/*.app/Info.plist" | plutil -p - | grep CFBundleVersion
