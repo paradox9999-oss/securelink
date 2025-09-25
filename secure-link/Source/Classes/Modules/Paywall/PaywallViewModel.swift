@@ -33,10 +33,7 @@ class PaywallViewModel {
     private var input: PaywallInput
     private var storeService: StoreService
     var dipslayProducts: [ProductDTO] {
-        let p = [ProductDTO(id: "1", name: "Weekly $9.99 | first 3 days free", price: "", description: ""),
-                 ProductDTO(id: "2", name: "Subscribe $24.99 | Monthly", price: "", description: "")]
-        return p
-//        return self.storeService.displayProducts
+        return self.storeService.displayProducts
     }
     
     init(input: PaywallInput) {

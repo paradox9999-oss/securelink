@@ -44,6 +44,11 @@ class SettingsViewController: ViewController {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.viewWillAppear()
+    }
+    
     private func setupUI() {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationItem.title = "Settings"
@@ -52,6 +57,18 @@ class SettingsViewController: ViewController {
         tableView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+        }
+        self.viewModel?.didUpdateUI = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.headerBanner.isHidden = self.viewModel?.hasPremium == true
+            if self.viewModel?.hasPremium == true {
+                self.tableView.tableHeaderView = nil
+            } else {
+                self.tableView.tableHeaderView = headerBanner
+            }
         }
     }
     

@@ -47,6 +47,12 @@ final class MainCoordinator: NSObject, Coordinate {
         settingsInput.didSelectPaywall = { [weak self] in
             self?.showPaywall()
         }
+        settingsInput.didChangePasscode = { [weak self] in
+            self?.showChangePasscode()
+        }
+        settingsInput.didOpenSupport = { [weak self] in
+            self?.openMailbox(email: Constants.URLs.support)
+        }
         
         let homeNav = TabNavigationController(tab: .home, root: homeModule.viewController)
         let settingsNav = TabNavigationController(tab: .settings, root: settingsModule.viewController)
@@ -104,26 +110,26 @@ final class MainCoordinator: NSObject, Coordinate {
         self.navigationController.present(vc, animated: true)
     }
 //    
-//    func showChangePasscode() {
-//        let secureCoordinator = SecurityCoordinator(
-//            resolver: self.resolver,
-//            navigationController: self.navigationController
-//        )
-//        secureCoordinator.reset()
-//        secureCoordinator.didEnd = { [weak self] in
-//            self?.removeChildCoordinator(secureCoordinator)
-//        }
-//        addChildCoordinator(secureCoordinator)
-//    }
+    func showChangePasscode() {
+        let secureCoordinator = PinCoordinator(
+            resolver: self.resolver,
+            navigationController: self.navigationController
+        )
+        secureCoordinator.reset()
+        secureCoordinator.didEnd = { [weak self] in
+            self?.removeChildCoordinator(secureCoordinator)
+        }
+        addChildCoordinator(secureCoordinator)
+    }
 //    
-//    private func openMailbox(email: String) {
-//        if MFMailComposeViewController.canSendMail() {
-//            let mail = MFMailComposeViewController()
-//            mail.mailComposeDelegate = self
-//            mail.setToRecipients([email])
-//            self.navigationController.present(mail, animated: true)
-//        }
-//    }
+    private func openMailbox(email: String) {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients([email])
+            self.navigationController.present(mail, animated: true)
+        }
+    }
     
     func finish() {}
 }

@@ -11,6 +11,16 @@ class HomeViewController: ViewController {
 
     var viewModel: HomeViewModel?
     
+    private lazy var uploadView: SpeedView = {
+        var view = SpeedView()
+        view.set(type: .upload)
+        return view
+    }()
+    private lazy var downloadView: SpeedView = {
+        var view = SpeedView()
+        view.set(type: .download)
+        return view
+    }()
     private lazy var topServerView: HomeServerView = {
         let view = HomeServerView()
         
@@ -83,6 +93,26 @@ class HomeViewController: ViewController {
         let connectionStack = ViewFactory.stack(.vertical, spacing: 6)
         let shieldView = UIImageView(image: Asset.homeShield.image)
         let utilityView = UIView()
+        
+        let hStack = ViewFactory.stack(.horizontal, spacing: 20)
+        let spacerView = UIView()
+        spacerView.backgroundColor = Asset.mainBlue.color
+        spacerView.snp.makeConstraints { make in
+            make.width.equalTo(1)
+        }
+        
+        hStack.addArrangedSubview(uploadView)
+        hStack.addArrangedSubview(spacerView)
+        hStack.addArrangedSubview(downloadView)
+        utilityView.addSubview(hStack)
+        hStack.snp.makeConstraints { make in
+            make.height.equalTo(44)
+            make.edges.equalToSuperview()
+        }
+        uploadView.snp.makeConstraints { make in
+            make.width.equalTo(self.downloadView.snp.width)
+        }
+        
 //        utilityView.backgroundColor = .blue
         vStack.alignment = .center
         
@@ -90,6 +120,7 @@ class HomeViewController: ViewController {
         vStack.addArrangedSubview(topServerView)
         vStack.addArrangedSubview(shieldView)
         vStack.addArrangedSubview(connectionStack)
+        vStack.addArrangedSubview(UIView())
         vStack.addArrangedSubview(utilityView)
         vStack.addArrangedSubview(connectButton)
         connectionStack.addArrangedSubview(connectionLabel)
@@ -156,8 +187,8 @@ class HomeViewController: ViewController {
         }
         self.viewModel?.didCheckSpeed = { [weak self] (download, upload) in
             DispatchQueue.main.async {
-//                self?.downloadView.configure(type: .download, value: download)
-//                self?.uploadView.configure(type: .upload, value: upload)
+                self?.downloadView.set(value: download)
+                self?.uploadView.set(value: upload)
             }
         }
         self.viewModel?.didUpdateTime = { [weak self] time in

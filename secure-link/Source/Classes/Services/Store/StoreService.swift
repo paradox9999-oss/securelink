@@ -16,6 +16,7 @@ struct ProductDTO {
     var localizedPrice: String
     var salePrice: String?
     var sale: Int?
+    let hasIntroOffer: Bool
     
     private var product: Product?
     
@@ -35,6 +36,12 @@ struct ProductDTO {
             }
         }
         
+        if let intro = product.subscription?.introductoryOffer {
+            self.hasIntroOffer = true
+        } else {
+            self.hasIntroOffer = false
+        }
+        
         self.localizedPrice = product.displayPrice
         self.name = product.displayName
     }
@@ -44,6 +51,7 @@ struct ProductDTO {
         self.description = description
         self.localizedPrice = price
         self.name = name
+        self.hasIntroOffer = false
     }
     
     init(id: String) {
@@ -52,6 +60,7 @@ struct ProductDTO {
         self.localizedPrice = "99.99$"
         self.salePrice = "4.7$/month"
         self.name = "Billed Monthly "
+        self.hasIntroOffer = false
     }
     
     var saleString: String? {

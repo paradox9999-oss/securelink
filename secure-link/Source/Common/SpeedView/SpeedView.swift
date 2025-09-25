@@ -10,7 +10,15 @@ import UIKit
 enum SpeedType {
     case download
     case upload
-    
+
+    var icon: UIImage {
+        switch self {
+        case .download:
+            return Asset.homeDownload.image
+        case .upload:
+            return Asset.homeUpload.image
+        }
+    }
     var title: String {
         switch self {
         case .download:
@@ -32,6 +40,7 @@ class SpeedView: UIView {
             font: FontFamily.RedHatDisplay.medium.font(size: 16),
             color: .white
         )
+        label.text = "-"
         return label
     }()
     private lazy var typeLabel: UILabel = {
@@ -53,7 +62,7 @@ class SpeedView: UIView {
     
     private func setupUI() {
         let hStack = ViewFactory.stack(.horizontal, spacing: 12)
-        let vStack = ViewFactory.stack(.horizontal, spacing: 4)
+        let vStack = ViewFactory.stack(.vertical, spacing: 4)
         
         hStack.alignment = .center
         
@@ -69,6 +78,15 @@ class SpeedView: UIView {
         hStack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    func set(type: SpeedType) {
+        self.directionView.image = type.icon
+        self.typeLabel.text = type.title
+    }
+    
+    func set(value: String) {
+        self.valueLabel.text = value
     }
 
 }

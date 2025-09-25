@@ -63,6 +63,7 @@ class HomeViewModel {
         vpnStateChanged(status: VPNManager.shared.status)
         VPNManager.shared.statusEvent.attach(self, HomeViewModel.vpnStateChanged)
         getCurrentServer()
+        getCheckSpeed()
         
         self.input.didSelectCountryId = { [weak self] id in
             guard let strongSelf = self else { return }

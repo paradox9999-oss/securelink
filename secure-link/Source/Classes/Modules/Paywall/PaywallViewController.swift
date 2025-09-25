@@ -242,7 +242,7 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
         productStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
         self.viewModel?.dipslayProducts.forEach { product in
             let button = UIButton(type: .system)
-            if product.id == "1" {
+            if product.hasIntroOffer == true {
                 button.backgroundColor = Asset.mainPrimary.color
             } else {
                 button.backgroundColor = Asset.mainBg.color

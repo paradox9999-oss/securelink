@@ -28,12 +28,18 @@ class SettingsViewModel {
     var faceIdEnable: Bool {
         return self.storageService.isFaceIDInstall
     }
+    var hasPremium: Bool {
+        return self.storeService.hasUnlockedPro
+    }
+    var didUpdateUI: Completion?
     
     private var storageService: StorageService
+    private var storeService: StoreService
     
     init(input: SettingsInput) {
         self.input = input
         self.storageService = input.resolver.resolve(StorageService.self)!
+        self.storeService = input.resolver.resolve(StoreService.self)!
         
         let profile = SettingGroup(
             items: [.faceId, .changePasscode],
@@ -79,6 +85,10 @@ class SettingsViewModel {
     
     func bannerTapped() {
         self.input.didSelectPaywall?()
+    }
+    
+    func viewWillAppear() {
+        self.didUpdateUI?()
     }
     
 }
