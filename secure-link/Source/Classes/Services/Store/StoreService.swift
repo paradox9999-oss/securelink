@@ -43,7 +43,12 @@ struct ProductDTO {
         }
         
         self.localizedPrice = product.displayPrice
-        self.name = product.displayName
+        
+        self.name = product.displayName + " " + product.displayPrice
+        
+        if self.hasIntroOffer {
+            self.name = self.name + " | 3 free days trial"
+        }
     }
     
     init(id: String, name: String, price: String, description: String) {

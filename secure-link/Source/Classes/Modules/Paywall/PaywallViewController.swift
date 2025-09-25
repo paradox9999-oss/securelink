@@ -102,6 +102,7 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
         super.viewDidLoad()
 
         setupUI()
+        setupBindings()
         viewModel?.viewDidLoad()
         showProducts()
         // Do any additional setup after loading the view.
@@ -255,6 +256,9 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
             button.snp.makeConstraints { make in
                 make.height.equalTo(56)
             }
+            button.addAction(UIAction(handler: { [weak self] action in
+                self?.viewModel?.payTapped(productId: product.id)
+            }), for: .touchUpInside)
             button.layoutIfNeeded()
             button.rounded(radius: 28)
             
