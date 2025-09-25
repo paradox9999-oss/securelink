@@ -3,7 +3,7 @@ workflows:
     name: Minimal iOS Sign & Upload
 
     integrations:
-      app_store_connect: "CodeMagic"
+      app_store_connect: "secure-link"
 
     environment:
       vars:
