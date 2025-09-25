@@ -10,6 +10,7 @@
 		112442732E851D5B009949C3 /* Extension+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112442722E851D5B009949C3 /* Extension+Loadable.swift */; };
 		112442762E851D85009949C3 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 112442752E851D85009949C3 /* NVActivityIndicatorView */; };
 		112442782E851D85009949C3 /* NVActivityIndicatorViewExtended in Frameworks */ = {isa = PBXBuildFile; productRef = 112442772E851D85009949C3 /* NVActivityIndicatorViewExtended */; };
+		1124427A2E8541CE009949C3 /* Test.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 112442792E8541CE009949C3 /* Test.storekit */; };
 		112992312E03C26A00738AC9 /* PinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112992302E03C26A00738AC9 /* PinViewModel.swift */; };
 		112992332E03C27300738AC9 /* PinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112992322E03C27300738AC9 /* PinViewController.swift */; };
 		112992362E03C2DE00738AC9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112992352E03C2DE00738AC9 /* ViewController.swift */; };
@@ -143,6 +144,7 @@
 
 /* Begin PBXFileReference section */
 		112442722E851D5B009949C3 /* Extension+Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Loadable.swift"; sourceTree = "<group>"; };
+		112442792E8541CE009949C3 /* Test.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Test.storekit; sourceTree = "<group>"; };
 		112992302E03C26A00738AC9 /* PinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinViewModel.swift; sourceTree = "<group>"; };
 		112992322E03C27300738AC9 /* PinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinViewController.swift; sourceTree = "<group>"; };
 		112992352E03C2DE00738AC9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				1129DD5E2E0355C1004E45D4 /* Source */,
 				1129DD5F2E0355D1004E45D4 /* Resources */,
 				1129DD4E2E0353F8004E45D4 /* Info.plist */,
+				112442792E8541CE009949C3 /* Test.storekit */,
 				1129DD502E0353F8004E45D4 /* LaunchScreen.storyboard */,
 				1129DD522E0353F8004E45D4 /* Main.storyboard */,
 			);
@@ -889,6 +892,7 @@
 				1129DDF52E0368C3004E45D4 /* RedHatDisplay-MediumItalic.ttf in Resources */,
 				1129DDF62E0368C3004E45D4 /* RedHatDisplay-Medium.woff2 in Resources */,
 				1129DDF72E0368C3004E45D4 /* RedHatDisplay-Italic[wght].ttf in Resources */,
+				1124427A2E8541CE009949C3 /* Test.storekit in Resources */,
 				1129DDF82E0368C3004E45D4 /* RedHatDisplay-LightItalic.woff2 in Resources */,
 				1129DDF92E0368C3004E45D4 /* RedHatDisplay-Italic.ttf in Resources */,
 				1129DDFA2E0368C3004E45D4 /* RedHatDisplay-Italic.woff2 in Resources */,
@@ -1035,7 +1039,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "secure-link/secure-link.entitlements";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "secure-link/Info.plist";
@@ -1072,7 +1076,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "secure-link/secure-link.entitlements";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "secure-link/Info.plist";
