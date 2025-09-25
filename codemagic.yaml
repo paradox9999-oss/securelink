@@ -9,7 +9,6 @@ workflows:
       vars:
         APP_APPLE_ID: "6752566816"
         XCODE_SCHEME: "secure-link"
-        XCODE_PROJECT: "secure-link.xcodeproj"
         BUNDLE_ID: "com.aesthetics.securelink"
 
       ios_signing:
@@ -21,22 +20,29 @@ workflows:
     scripts:
       - name: Set up code signing in project
         script: xcode-project use-profiles
-        
-      - name: Get the latest build number and increment
+
+      - name: Get the latest build number and increment (AGV)
         script: |
+          set -euo pipefail
           echo "Fetching latest build number for App ID: $APP_APPLE_ID"
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_APPLE_ID")
-          if [ -z "$LATEST_BUILD_NUMBER" ]; then
-            echo "No existing builds found, starting from 1"
-            LATEST_BUILD_NUMBER=1
-          fi
-          echo "Latest build on App Store: $LATEST_BUILD_NUMBER"
-          cd ios
-          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
-          
+          LATEST=$(app-store-connect get-latest-app-store-build-number "$APP_APPLE_ID" || echo 0)
+          NEXT=$(( LATEST + 1 ))
+          echo "ASC latest: $LATEST -> NEXT: $NEXT"
+
+          # ВАЖНО: запускаем agvtool в том же каталоге, откуда будем собирать (без cd ios)
+          agvtool new-version -all "$NEXT"
+          echo "AGV status:"
+          agvtool what-version || true
+          agvtool what-marketing-version || true
+
       - name: Clean and archive project
         script: |
-          xcodebuild clean
+          set -euo pipefail
+          xcodebuild clean \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -configuration Release
+
           set -o pipefail && xcodebuild archive \
             -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME" \
@@ -45,12 +51,22 @@ workflows:
             -archivePath "$HOME/build/$XCODE_SCHEME.xcarchive" \
             -allowProvisioningUpdates \
           | tee "$CM_BUILD_DIR/xcodebuild.log"
+
+          echo "Archive CFBundleVersion:"
+          /usr/libexec/PlistBuddy -c "Print :ApplicationProperties:CFBundleVersion" \
+            "$HOME/build/$XCODE_SCHEME.xcarchive/Info.plist" || true
+
       - name: Export .ipa using default settings
         script: |
+          set -euo pipefail
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
             --scheme "$XCODE_SCHEME" \
           | tee "$CM_BUILD_DIR/export.log"
+
+          echo "IPA CFBundleVersion:"
+          unzip -p build/ios/ipa/*.ipa "Payload/*.app/Info.plist" | plutil -p - | grep CFBundleVersion
+          unzip -p build/ios/ipa/*.ipa "Payload/*.app/Info.plist" | plutil -p - | grep CFBundleShortVersionString || true
 
     artifacts:
       - build/ios/ipa/*.ipa
@@ -60,3 +76,4 @@ workflows:
         auth: integration
         submit_to_testflight: true
         submit_to_app_store: true
+
