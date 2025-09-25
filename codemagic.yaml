@@ -22,18 +22,41 @@ workflows:
       - name: Set up code signing in project
         script: xcode-project use-profiles
 
-      - name: Get the latest build number and increment (AGV)
-        script: |
-          set -euo pipefail
-          echo "Fetching latest build number for App ID: $APP_APPLE_ID"
-          LATEST=$(app-store-connect get-latest-app-store-build-number "$APP_APPLE_ID" || echo 0)
-          NEXT=$(( LATEST + 1 ))
-          echo "ASC latest: $LATEST -> NEXT: $NEXT"
+- name: Compute NEXT_BUILD (>=3)
+  script: |
+    set -euo pipefail
+    LATEST=$(app-store-connect get-latest-app-store-build-number "$APP_APPLE_ID" || echo 0)
+    echo "ASC latest: ${LATEST:-0}"
+    # Требуем минимум 3, т.к. в ASC уже есть 2
+    if [[ -z "${LATEST:-}" || "${LATEST:-0}" -lt 2 ]]; then
+      NEXT=3
+    else
+      NEXT=$(( LATEST + 1 ))
+    fi
+    echo "NEXT_BUILD=$NEXT" | tee -a "$CM_ENV"
 
-          agvtool new-version -all "$NEXT" || true
-          echo "AGV status:"
-          agvtool what-version || true
-          agvtool what-marketing-version || true
+- name: Set build number (AGV + fallback to Info.plist)
+  script: |
+    set -euo pipefail
+    echo "Setting build to $NEXT_BUILD"
+    # 1) AGV (если включен Apple Generic и Info.plist ссылается на $(CURRENT_PROJECT_VERSION))
+    agvtool new-version -all "$NEXT_BUILD" || true
+    agvtool what-version || true
+
+    # 2) Fallback: перезапишем CFBundleVersion в главном Info.plist на тот же NEXT_BUILD
+    if [[ -n "${XCODE_WORKSPACE:-}" ]]; then
+      SETTINGS=$(xcodebuild -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" -showBuildSettings)
+    else
+      SETTINGS=$(xcodebuild -project "${XCODE_PROJECT:?Set XCODE_PROJECT or XCODE_WORKSPACE}" -scheme "$XCODE_SCHEME" -showBuildSettings)
+    fi
+    INFO_PLIST=$(echo "$SETTINGS" | awk -F'= ' '/INFOPLIST_FILE/ {print $2; exit}')
+    [[ "$INFO_PLIST" != /* ]] && INFO_PLIST="$(pwd)/$INFO_PLIST"
+    echo "Main Info.plist: $INFO_PLIST"
+    /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $NEXT_BUILD" "$INFO_PLIST" || \
+    /usr/libexec/PlistBuddy -c "Add :CFBundleVersion string $NEXT_BUILD" "$INFO_PLIST"
+    echo "Result CFBundleVersion:"
+    /usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$INFO_PLIST"
+
 
       - name: Clean and archive project
         script: |
