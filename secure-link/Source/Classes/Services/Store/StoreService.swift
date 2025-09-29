@@ -24,6 +24,7 @@ struct ProductDTO {
         var week = ProductDTO(id: "1")
         week.description = "Weekly"
         
+        var week2 = ProductDTO(id: "2")
         
         if week.description.isEmpty == false, let n = NumberFormatter().number(from: week.description) {
             let sale = CGFloat(truncating: n)
@@ -50,7 +51,7 @@ struct ProductDTO {
             week.name = week.name + " | 3 free days trial"
         }
         
-        return [week]
+        return [week, week2]
     }
     
     init(product: Product) {

@@ -126,7 +126,7 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).inset(12)
         }
         
-        let vStack = ViewFactory.stack(.vertical, spacing: 32)
+        let vStack = ViewFactory.stack(.vertical, spacing: 24)
         view.addSubview(vStack)
         vStack.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(32)
@@ -232,11 +232,15 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
         }()
         
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 3
         label.font = FontFamily.RedHatDisplay.regular.font(size: 12)
         label.textColor = Asset.mainLightGrey.color
+        label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.text = "Payment will be charged to your Apple ID account. Subscription automatically renews unless canceled at least 24 hours before the end of the current period. You can manage or cancel your subscription in Settings after purchase."
+        label.snp.makeConstraints { make in
+            make.height.equalTo(32)
+        }
         
         vStack.addArrangedSubview(topStack)
         vStack.addArrangedSubview(centerStack)
