@@ -16,25 +16,47 @@ struct ProductDTO {
     var localizedPrice: String
     var salePrice: String?
     var sale: Int?
-    let hasIntroOffer: Bool
+    var hasIntroOffer: Bool
     
     private var product: Product?
+    
+    static var mock: [ProductDTO] {
+        var week = ProductDTO(id: "1")
+        week.description = "Weekly"
+        
+        
+        if week.description.isEmpty == false, let n = NumberFormatter().number(from: week.description) {
+            let sale = CGFloat(truncating: n)
+            let price = 3.99 / Decimal(sale)
+            let formatter = NumberFormatter()
+            formatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
+            formatter.numberStyle = .currency
+            if let formattedTipAmount = formatter.string(from: price as NSNumber) {
+                week.salePrice = "\(formattedTipAmount)/month"
+            }
+        }
+        
+//        if let intro = product.subscription?.introductoryOffer {
+            week.hasIntroOffer = true
+//        } else {
+//            self.hasIntroOffer = false
+//        }
+        
+        week.localizedPrice = "$3.99"
+
+        week.name = "Weekly" + " " + "3.88"
+        
+        if week.hasIntroOffer {
+            week.name = week.name + " | 3 free days trial"
+        }
+        
+        return [week]
+    }
     
     init(product: Product) {
         self.product = product
         self.id = product.id
         self.description = product.description
-        
-        if product.description.isEmpty == false, let n = NumberFormatter().number(from: product.description) {
-            let sale = CGFloat(truncating: n)
-            let price = product.price / Decimal(sale)
-            let formatter = NumberFormatter()
-            formatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
-            formatter.numberStyle = .currency
-            if let formattedTipAmount = formatter.string(from: price as NSNumber) {
-                salePrice = "\(formattedTipAmount)/month"
-            }
-        }
         
         if let intro = product.subscription?.introductoryOffer {
             self.hasIntroOffer = true
@@ -47,7 +69,7 @@ struct ProductDTO {
         self.name = product.displayName + " " + product.displayPrice
         
         if self.hasIntroOffer {
-            self.name = self.name + " | 3 free days trial"
+            self.name = self.name + " • 3-day trial"
         }
     }
     
@@ -103,6 +125,7 @@ protocol StoreService {
 class StoreServiceImplementation: NSObject, StoreService {
 
     var displayProducts: [ProductDTO] {
+//        return ProductDTO.mock
         return products.map { product in
             let p = ProductDTO(
                 product: product

@@ -196,7 +196,7 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
             restore.titleLabel?.font = FontFamily.RedHatDisplay.regular.font(size: 12)
             restore.setTitleColor(Asset.mainLightBlue.color, for: .normal)
             restore.setTitle("Restore purchase", for: .normal)
-            privacy.addAction(UIAction(handler: { [weak self] action in
+            restore.addAction(UIAction(handler: { [weak self] action in
                 self?.viewModel?.didTap(state: .restore)
             }), for: .touchUpInside)
             
@@ -204,7 +204,7 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
             terms.titleLabel?.font = FontFamily.RedHatDisplay.regular.font(size: 12)
             terms.setTitleColor(Asset.mainLightBlue.color, for: .normal)
             terms.setTitle("Terms of use", for: .normal)
-            privacy.addAction(UIAction(handler: { [weak self] action in
+            terms.addAction(UIAction(handler: { [weak self] action in
                 self?.viewModel?.didTap(state: .terms)
             }), for: .touchUpInside)
             
@@ -231,10 +231,20 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
             return view
         }()
         
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = FontFamily.RedHatDisplay.regular.font(size: 12)
+        label.textColor = Asset.mainLightGrey.color
+        label.textAlignment = .center
+        label.text = "Payment will be charged to your Apple ID account. Subscription automatically renews unless canceled at least 24 hours before the end of the current period. You can manage or cancel your subscription in Settings after purchase."
+        
         vStack.addArrangedSubview(topStack)
         vStack.addArrangedSubview(centerStack)
         vStack.addArrangedSubview(UIView())
         vStack.addArrangedSubview(productStack)
+        vStack.setCustomSpacing(8, after: productStack)
+        vStack.addArrangedSubview(label)
+        vStack.setCustomSpacing(8, after: label)
         vStack.addArrangedSubview(termsView)
         
     }
@@ -268,10 +278,14 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
     
     func setupBindings() {
         viewModel?.didLoading = { [weak self] isLoaded in
-            isLoaded ? self?.startLoading() : self?.stopLoading()
+            DispatchQueue.main.async {
+                isLoaded ? self?.startLoading() : self?.stopLoading()
+            }
         }
         viewModel?.didShowError = { [weak self] errorString in
-            self?.showToast(message: errorString)
+            DispatchQueue.main.async {
+                self?.showToast(message: errorString)
+            }
         }
         viewModel?.didDismiss = { [weak self] in
             DispatchQueue.main.async {

@@ -52,8 +52,8 @@ class PaywallViewModel {
     func didTap(state: PatwallButtonTap) {
         switch state {
             case .restore:
-                self.storeService.restore { errorString in
-                    //
+                self.storeService.restore { [weak self] errorString in
+                    self?.didShowError?("Restore successfull")
                 }
             case .privacy:
                 UIApplication.shared.open(URL(string: Constants.URLs.privacy)!)

@@ -140,6 +140,7 @@
 		114607822E171ABD00C54DE1 /* PaywallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114607812E171ABD00C54DE1 /* PaywallViewController.swift */; };
 		114607852E171B4A00C54DE1 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114607842E171B4A00C54DE1 /* StoreService.swift */; };
 		114607882E171B8700C54DE1 /* Adapty in Frameworks */ = {isa = PBXBuildFile; productRef = 114607872E171B8700C54DE1 /* Adapty */; };
+		11567BD82E8AC6E500A253E5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11567BD72E8AC6E500A253E5 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -271,6 +272,7 @@
 		1146077F2E171AB000C54DE1 /* PaywallViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallViewModel.swift; sourceTree = "<group>"; };
 		114607812E171ABD00C54DE1 /* PaywallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallViewController.swift; sourceTree = "<group>"; };
 		114607842E171B4A00C54DE1 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
+		11567BD72E8AC6E500A253E5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +280,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11567BD82E8AC6E500A253E5 /* StoreKit.framework in Frameworks */,
 				1129DD9B2E035978004E45D4 /* SnapKit in Frameworks */,
 				112442782E851D85009949C3 /* NVActivityIndicatorViewExtended in Frameworks */,
 				112992592E03C4A800738AC9 /* Alamofire in Frameworks */,
@@ -433,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				1129DD552E0353F8004E45D4 /* secure-link */,
+				11567BD62E8AC6E500A253E5 /* Frameworks */,
 				1129DD352E0353ED004E45D4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -786,6 +790,14 @@
 			path = Store;
 			sourceTree = "<group>";
 		};
+		11567BD62E8AC6E500A253E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				11567BD72E8AC6E500A253E5 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1038,8 +1050,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "secure-link/secure-link.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "secure-link/Info.plist";
@@ -1050,7 +1063,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1076,8 +1089,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "secure-link/secure-link.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "secure-link/Info.plist";
@@ -1088,7 +1102,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -85,11 +85,15 @@
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "FE1B7476",
-          "introductoryOffer" : null,
+          "introductoryOffer" : {
+            "internalID" : "4249E71B",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
           "localizations" : [
             {
-              "description" : "",
-              "displayName" : "",
+              "description" : "Weekly",
+              "displayName" : "Weekly",
               "locale" : "en_US"
             }
           ],
@@ -116,8 +120,8 @@
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "",
-              "displayName" : "",
+              "description" : "Monthly",
+              "displayName" : "Monthly",
               "locale" : "en_US"
             }
           ],
