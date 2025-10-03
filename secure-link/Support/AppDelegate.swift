@@ -7,6 +7,7 @@
 
 import UIKit
 import Swinject
+import Adapty
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        setupSDK()
         setupAssembler()
         setupDependencies()
         setupNavigation()
@@ -64,6 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .foregroundColor: Asset.mainLightGrey.color,
             .font: FontFamily.RedHatDisplay.medium.font(size: 24)
         ]
+    }
+    
+    func setupSDK() {
+        Adapty.activate("public_live_9AcTvydK.VtarUHd1XNtOTlLoSHbj")
     }
 
 }
