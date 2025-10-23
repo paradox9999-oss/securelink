@@ -20,39 +20,39 @@ struct ProductDTO {
     
     private var product: Product?
     
-    static var mock: [ProductDTO] {
-        var week = ProductDTO(id: "1")
-        week.description = "Weekly"
-        
-        var week2 = ProductDTO(id: "2")
-        
-        if week.description.isEmpty == false, let n = NumberFormatter().number(from: week.description) {
-            let sale = CGFloat(truncating: n)
-            let price = 3.99 / Decimal(sale)
-            let formatter = NumberFormatter()
-            formatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
-            formatter.numberStyle = .currency
-            if let formattedTipAmount = formatter.string(from: price as NSNumber) {
-                week.salePrice = "\(formattedTipAmount)/month"
-            }
-        }
-        
-//        if let intro = product.subscription?.introductoryOffer {
-            week.hasIntroOffer = true
-//        } else {
-//            self.hasIntroOffer = false
+//    static var mock: [ProductDTO] {
+//        var week = ProductDTO(id: "1")
+//        week.description = "Weekly"
+//        
+//        var week2 = ProductDTO(id: "2")
+//        
+//        if week.description.isEmpty == false, let n = NumberFormatter().number(from: week.description) {
+//            let sale = CGFloat(truncating: n)
+//            let price = 3.99 / Decimal(sale)
+//            let formatter = NumberFormatter()
+//            formatter.locale = Locale.current // Change this to another locale if you want to force a specific locale, otherwise this is redundant as the current locale is the default already
+//            formatter.numberStyle = .currency
+//            if let formattedTipAmount = formatter.string(from: price as NSNumber) {
+//                week.salePrice = "\(formattedTipAmount)/month"
+//            }
 //        }
-        
-        week.localizedPrice = "$3.99"
-
-        week.name = "Weekly" + " " + "3.88"
-        
-        if week.hasIntroOffer {
-            week.name = week.name + " | 3 free days trial"
-        }
-        
-        return [week, week2]
-    }
+//        
+////        if let intro = product.subscription?.introductoryOffer {
+//            week.hasIntroOffer = true
+////        } else {
+////            self.hasIntroOffer = false
+////        }
+//        
+//        week.localizedPrice = "$3.99"
+//
+//        week.name = "Weekly" + " " + "3.88"
+//        
+//        if week.hasIntroOffer {
+//            week.name = week.name + " | 3 free days trial"
+//        }
+//        
+//        return [week, week2]
+//    }
     
     init(product: Product) {
         self.product = product
