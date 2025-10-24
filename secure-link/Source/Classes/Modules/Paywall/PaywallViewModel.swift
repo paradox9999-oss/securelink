@@ -44,6 +44,7 @@ class PaywallViewModel {
     func viewDidLoad() {
         self.storeService.didUpdate = { [weak self] in
             if self?.storeService.hasUnlockedPro == true {
+                self?.didLoading?(false)
                 self?.didDismiss?()
             }
         }

@@ -293,6 +293,7 @@ class PaywallViewController: UIViewController, Loadable, Toastable {
         }
         viewModel?.didDismiss = { [weak self] in
             DispatchQueue.main.async {
+                self?.stopLoading()
                 self?.dismiss(animated: true)
             }
         }
